@@ -101,9 +101,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     void initializePieces() {
     	
         // (0,0) is the top left corner of the board. The first index is the row and the second index is the column.
-    	board[0][4].put(new Piece(true, RESOURCES_WKING_PNG));
-        board[4][3].put(new Piece(false, RESOURCES_BQUEEN_PNG));
-        board[4][5].put(new Piece(false, RESOURCES_BQUEEN_PNG));
+    	board[0][4].put(new Transformer(true, RESOURCES_WKING_PNG,));
+        board[4][3].put(new Piece(false, RESOURCES_BQUEEN_PNG,));
+        board[4][5].put(new Piece(false, RESOURCES_BQUEEN_PNG,));
     }
 
     public Square[][] getSquareArray() {
@@ -182,6 +182,30 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
+    public boolean isInCheck(boolean color){
+
+        return false;
+        // Square kingSquare = null;
+        // for(Square[] row: board){
+        //     for(Square s: row){
+        //         if(s.isOccupied() && s.getOccupyingPiece() instanceof King && s.getOccupyingPiece().getColor() == color){
+        //             kingSquare = s;
+        //         }
+        //     }
+        // }
+
+        // for(Square[] row: board){
+        //     for(Square s: row){
+        //         if(s.isOccupied() && s.getOccupyingPiece().getColor() != color){
+        //             if(s.getOccupyingPiece().getLegalMoves(this, s).contains(kingSquare)){
+        //                 return true;
+        //             }
+        //         }
+        //     }
+        // }
+
+        // return false;
+    }
     //TO BE IMPLEMENTED!
     //should move the piece to the desired location only if this is a legal move.
     //use the pieces "legal move" function to determine if this move is legal, then complete it by
@@ -196,17 +220,37 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
         //using currPiece
         
-        if(fromMoveSquare != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
-            endSquare.put(currPiece);
-            fromMoveSquare.removePiece();
-            
-        }
+        // if(fromMoveSquare != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
+        //     endSquare.put(currPiece);
+        //     fromMoveSquare.removePiece();
 
-        //if(fromMoveSquare != null && currPiece.getControlledSquares(board,fromMoveSquare).contains(endSquare)){
-        //    endSquare.put(currPiece);
-        //    fromMoveSquare.removePiece();
-        //   
-        //}
+            
+            
+        // }
+
+        if(fromMoveSquare != null && currPiece!= null){
+            fromMoveSquare.setDisplay(true);
+            if(currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
+                Piece captured = endSquare.getOccupyingPiece();
+                endSquare.put(currPiece);
+                fromMoveSquare.removePiece();
+
+                if(isInCheck(whiteTurn)){
+                    fromMoveSquare.put(currPiece);
+                    endSquare.put(captured);
+                    if(currPiece instanceof Transformer){
+                        endSquare.put(captured);
+                        captured.setColor(!captured.getColor());
+                        captured.swapImg();
+                    }
+                }
+
+                else{
+                    whiteTurn = !whiteTurn;
+                }
+              
+           }
+        }
         
         
         fromMoveSquare.setDisplay(true);
