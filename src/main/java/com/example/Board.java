@@ -22,7 +22,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class Board extends JPanel implements MouseListener, MouseMotionListener {
 	// Resource location constants for piece images
-    private static final String path = "/src/main/java/com/example/Pictures/";
+    private static final String path = "/workspaces/chess2026/src/main/java/com/example/Pictures/";
     private static final String RESOURCES_WBISHOP_PNG = path+"wbishop.png";
 	private static final String RESOURCES_BBISHOP_PNG = path+"bbishop.png";
 	private static final String RESOURCES_WKNIGHT_PNG = path+"wknight.png";
@@ -35,6 +35,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private static final String RESOURCES_WQUEEN_PNG = path+"wqueen.png";
 	private static final String RESOURCES_WPAWN_PNG = path+"wpawn.png";
 	private static final String RESOURCES_BPAWN_PNG = path+"bpawn.png";
+    private static final String RESOURCES_WTRANSFORMER_PNG = path+"transformerFinal.png";
 
     
 	
@@ -101,9 +102,44 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     void initializePieces() {
     	
         // (0,0) is the top left corner of the board. The first index is the row and the second index is the column.
-    	board[0][4].put(new Piece(true, RESOURCES_WKING_PNG));
-        board[4][3].put(new Piece(false, RESOURCES_BQUEEN_PNG));
-        board[4][5].put(new Piece(false, RESOURCES_BQUEEN_PNG));
+
+        //white pieces
+        board[7][0].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[7][1].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[7][2].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[7][3].put(new Transformer(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[7][4].put(new King(true, RESOURCES_WKING_PNG,RESOURCES_WPAWN_PNG));
+        board[7][5].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[7][6].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[7][7].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+
+        board[6][0].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[6][1].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[6][2].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[6][3].put(new Transformer(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[6][4].put(new Transformer(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[6][5].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[6][6].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[6][7].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+
+        //black pieces
+        board[0][0].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[0][1].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[0][2].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[0][3].put(new Transformer(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[0][4].put(new King(false, RESOURCES_BKING_PNG,RESOURCES_BPAWN_PNG));
+        board[0][5].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[0][6].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[0][7].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        
+        board[1][0].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[1][1].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[1][2].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[1][3].put(new Transformer(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[1][4].put(new Transformer(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[1][5].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[1][6].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[1][7].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
     }
 
     public Square[][] getSquareArray() {
@@ -124,33 +160,18 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void paintComponent(Graphics g) {
-     Image backgroundImage = null; 
-     URL imageUrl = null;
-     if (currPiece != null) {
-      imageUrl = getClass().getResource("/src/main/java/com/example/"+currPiece.getImage());
-     }
-
-     if (imageUrl != null) {
-            // This is the cleanest way to get an AWT Image object from a URL
-            backgroundImage = Toolkit.getDefaultToolkit().createImage(imageUrl);
-        } else {
-            System.err.println("Image resource not found. Check path: /src/main/java/com/example/Pictures/");
-        }
-    
-
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Square sq = board[x][y];
                 if(sq == fromMoveSquare)
                 	 sq.setBorder(BorderFactory.createLineBorder(Color.blue));
                 sq.paintComponent(g);
-                System.out.println("Painting square at " + x + ", " + y);   
+               // System.out.println("Painting square at " + x + ", " + y);   
                 
             }
         }
     	if (currPiece != null) {
-            if ((currPiece.getColor() && whiteTurn)
-                    || (!currPiece.getColor()&& !whiteTurn)) {
+            if ((currPiece.getColor() && whiteTurn)|| (!currPiece.getColor()&& !whiteTurn)) {
                 final Image img = currPiece.getImage();
                 g.drawImage(img, currX, currY, null);
             }
@@ -182,6 +203,29 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
+    public boolean isInCheck(boolean color){
+
+         Square kingSquare = null;
+         for(Square[] row: board){
+             for(Square s: row){
+                 if(s.isOccupied() && s.getOccupyingPiece() instanceof King && s.getOccupyingPiece().getColor() == color){
+                     kingSquare = s;
+                 }
+             }
+         }
+
+         for(Square[] row: board){
+             for(Square s: row){
+                 if(s.isOccupied() && s.getOccupyingPiece().getColor() != color){
+                     if(s.getOccupyingPiece().getLegalMoves(this, s).contains(kingSquare)){
+                         return true;
+                     }
+                 }
+             }
+         }
+
+         return false;
+    }
     //TO BE IMPLEMENTED!
     //should move the piece to the desired location only if this is a legal move.
     //use the pieces "legal move" function to determine if this move is legal, then complete it by
@@ -196,17 +240,37 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
         //using currPiece
         
-        if(fromMoveSquare != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
-            endSquare.put(currPiece);
-            fromMoveSquare.removePiece();
-            
-        }
+        // if(fromMoveSquare != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
+        //     endSquare.put(currPiece);
+        //     fromMoveSquare.removePiece();
 
-        //if(fromMoveSquare != null && currPiece.getControlledSquares(board,fromMoveSquare).contains(endSquare)){
-        //    endSquare.put(currPiece);
-        //    fromMoveSquare.removePiece();
-        //   
-        //}
+            
+            
+        // }
+
+        if(fromMoveSquare != null && currPiece!= null){
+            fromMoveSquare.setDisplay(true);
+            if(currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare) && currPiece.getColor() == whiteTurn){
+                Piece captured = endSquare.getOccupyingPiece();
+                endSquare.put(currPiece);
+                fromMoveSquare.removePiece();
+
+                if(isInCheck(whiteTurn)){
+                    fromMoveSquare.put(currPiece);
+                    endSquare.put(captured);
+                    if(currPiece instanceof Transformer){
+                        endSquare.put(captured);
+                        captured.setColor(!captured.getColor());
+                        captured.swapImg();
+                    }
+                }
+
+                else{
+                    whiteTurn = !whiteTurn;
+                }
+              
+           }
+        }
         
         
         fromMoveSquare.setDisplay(true);
