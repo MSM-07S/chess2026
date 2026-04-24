@@ -35,7 +35,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private static final String RESOURCES_WQUEEN_PNG = path+"wqueen.png";
 	private static final String RESOURCES_WPAWN_PNG = path+"wpawn.png";
 	private static final String RESOURCES_BPAWN_PNG = path+"bpawn.png";
-    private static final String RESOURCES_WTRANSFORMER_PNG = path+"transformerFinal.png";
+    //private static final String RESOURCES_WTRANSFORMER_PNG = path+"transformerFinal.png";
 
     
 	
@@ -103,16 +103,17 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     	
         // (0,0) is the top left corner of the board. The first index is the row and the second index is the column.
 
-        //white pieces
-        board[7][0].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
-        board[7][1].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
-        board[7][2].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
-        board[7][3].put(new Transformer(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        //white back row
+        board[7][0].put(new Rook(true, RESOURCES_WROOK_PNG,RESOURCES_WPAWN_PNG));
+        board[7][1].put(new Knight(true, RESOURCES_WKNIGHT_PNG,RESOURCES_WPAWN_PNG));
+        board[7][2].put(new Bishop(true, RESOURCES_WBISHOP_PNG,RESOURCES_WPAWN_PNG));
+    board[7][3].put(new Queen(true, RESOURCES_WQUEEN_PNG,RESOURCES_WPAWN_PNG));
         board[7][4].put(new King(true, RESOURCES_WKING_PNG,RESOURCES_WPAWN_PNG));
-        board[7][5].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
-        board[7][6].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
-        board[7][7].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
+        board[7][5].put(new Bishop(true, RESOURCES_WBISHOP_PNG,RESOURCES_WPAWN_PNG));
+        board[7][6].put(new Knight(true, RESOURCES_WKNIGHT_PNG,RESOURCES_WPAWN_PNG));
+        board[7][7].put(new Rook(true, RESOURCES_WROOK_PNG,RESOURCES_WPAWN_PNG));
 
+        //white pawn row
         board[6][0].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
         board[6][1].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
         board[6][2].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
@@ -122,16 +123,17 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         board[6][6].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
         board[6][7].put(new Pawn(true, RESOURCES_WPAWN_PNG,RESOURCES_WPAWN_PNG));
 
-        //black pieces
-        board[0][0].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
-        board[0][1].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
-        board[0][2].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
-        board[0][3].put(new Transformer(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        //black back row pieces
+        board[0][0].put(new Rook(false, RESOURCES_BROOK_PNG,RESOURCES_BPAWN_PNG));
+        board[0][1].put(new Knight(false, RESOURCES_BKNIGHT_PNG,RESOURCES_BPAWN_PNG));
+        board[0][2].put(new Bishop(false, RESOURCES_BBISHOP_PNG,RESOURCES_BPAWN_PNG));
+        board[0][3].put(new Queen(false, RESOURCES_BQUEEN_PNG,RESOURCES_BPAWN_PNG));
         board[0][4].put(new King(false, RESOURCES_BKING_PNG,RESOURCES_BPAWN_PNG));
-        board[0][5].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
-        board[0][6].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
-        board[0][7].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        board[0][5].put(new Bishop(false, RESOURCES_BBISHOP_PNG,RESOURCES_BPAWN_PNG));
+        board[0][6].put(new Knight(false, RESOURCES_BKNIGHT_PNG,RESOURCES_BPAWN_PNG));
+        board[0][7].put(new Rook(false, RESOURCES_BROOK_PNG,RESOURCES_BPAWN_PNG));
         
+        //black row
         board[1][0].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
         board[1][1].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
         board[1][2].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
@@ -140,6 +142,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         board[1][5].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
         board[1][6].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
         board[1][7].put(new Pawn(false, RESOURCES_BPAWN_PNG,RESOURCES_BPAWN_PNG));
+        
     }
 
     public Square[][] getSquareArray() {
