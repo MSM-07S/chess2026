@@ -1,3 +1,7 @@
+//Alex Wang
+
+//This piece moves like a normal pawn, but when capturing a piece will take on that piece's attributes.
+
 package com.example;
 import java.util.ArrayList;
 import java.awt.Graphics;
@@ -22,7 +26,8 @@ public class Transformer extends Piece {
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
 
-
+    //precon: piece needs to be on board and needs the current coordinates of the piece
+    //postcon: returns an array of moves where the piece can go
     public ArrayList<Square> getLegalMoves(Board b, Square currentSquare) {
         ArrayList<Square> moves = new ArrayList<Square>();
         for (Square s : getControlledSquares(b.getSquareArray(), currentSquare)) {
@@ -48,6 +53,8 @@ public class Transformer extends Piece {
         return moves;
     }
 
+    //precon: current location of piece and type
+    //postcon: returns arraylist of squares the piece can capture to
     public ArrayList<Square> getControlledSquares(Square[][] board, Square currentSquare) {
         ArrayList<Square> controlled = new ArrayList<Square>();
         int drow = getColor() ? -1 : 1;
